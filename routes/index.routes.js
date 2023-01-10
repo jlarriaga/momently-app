@@ -6,6 +6,4 @@ router.get("/", (req, res, next) => {
   res.render("index");
 });
 
-console.log("Hola Mar");
-
 module.exports = router;
