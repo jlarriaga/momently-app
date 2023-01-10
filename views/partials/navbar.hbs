@@ -1,0 +1,17 @@
+<nav>
+         <div>
+            <a href="/">Momently</a>
+
+            <ul>
+            {{#if user}}
+                <li><a href="/user/home">Home</a></li>
+                <li><a href="/user/events">Events</a></li>
+                <li><a href="/user/profile">Profile</a></li>
+            {{else}}
+                <li><a href="/auth/login">Log in</a></li>
+                <li><a href="/auth/signup">Sign up</a></li>
+            {{/if}}
+            </ul>
+
+         </div>
+      </nav>
