@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 
 // How many rounds should bcrypt run the salt (default - 10 rounds)
-const saltRounds = 10;
+const saltRound = 10;
 
 // Require the User model in order to interact with the database
 const User = require("../models/User.model");
@@ -16,12 +16,12 @@ const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 
 // GET /auth/signup
-router.get("/signup", isLoggedOut, (req, res, next) => {
+router.get("/signup", (req, res, next) => {
   res.render("auth/signup");
 });
 
 // POST /auth/signup
-router.post("/signup", isLoggedOut, async (req, res, next) => {
+router.post("/signup", async (req, res, next) => {
   const { username, email, password, confirmPassword } = req.body;
   try {
     if (username === "" || email === "" || password === "" || confirmPassword === "") {
@@ -83,12 +83,12 @@ router.post("/signup", isLoggedOut, async (req, res, next) => {
 })
 
 // GET /auth/login
-router.get("/login", isLoggedOut, (req, res) => {
+router.get("/login", (req, res) => {
   res.render("auth/login");
 });
 
 // POST /auth/login
-router.post("/login", isLoggedOut, async (req, res, next) => {
+router.post("/login", async (req, res, next) => {
   const { username, email, password } = req.body;
   try {
   // Check that username, email, and password are provided
