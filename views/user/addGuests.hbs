@@ -1,0 +1,79 @@
+{{!-- Guests list begins --}}
+ <ul>
+    <li>{{event.title}}</li>
+    <li>{{event.description}}</li>
+    <li>{{event.location}}</li>
+    <li>{{event.date}}</li>
+ </ul>
+  
+ <div class="container text-center">
+  <div class="row">
+    <div class="col">
+     Add Guest
+      {{#if isEdit}}
+      <form 
+      action="create/:id/addGuests"
+      method="POST"
+      >
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Guest Name</label>
+          <input
+          value="{{guestCreated.name}}"
+            type="text"
+            class="form-control"
+            id="name"
+            placeholder="Name"
+            name="name"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="Description" class="form-label">Email</label>
+          <textarea
+         
+            class="form-control"
+            id="email"
+            rows="3"
+            name="email"
+            placeholder="Email"
+          >{{guestCreated.email}}</textarea>
+        </div>
+         <button type="submit" class="btn btn-primary">Edit Guest</button>
+      </form>
+      {{else}}
+      <form 
+      action="create/:id/addGuests"
+      method="POST"
+      >
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Guest Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            placeholder="name"
+            name="name"
+          />
+
+          <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Email</label>
+          <input
+            type="text"
+            class="form-control"
+            id="email"
+            placeholder="Email"
+            name="email"
+          />
+
+         <button type="submit" class="btn btn-primary">Add Guest</button>
+
+      </form>
+      {{/if}}
+    </div>
+    <div class="col">
+      Guest List
+      {{#each guestList}}
+      {{> guestCard this }}
+      {{/each}}
+    </div>
+  </div>
+</div>

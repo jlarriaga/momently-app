@@ -1,19 +1,10 @@
 <div class="card" style="width: 18rem;">
   <div class="card-body">
-    <h5 class="card-title">{{title}}</h5>
+    <h5 class="card-title">{{name}}</h5>
 
-    <p class="card-text">{{description}}</p>
+    <p class="card-text">{{email}}</p>
 
-    {{#if isComplete}}
-    <p>Terminada</p>
-    {{else}}
-    <form 
-    action="/task/{{_id}}/complete"
-    method="post">
-        <button type="submit" class="btn btn-success">Completar</button>
-    </form>
-    {{/if}}
-    <a href="/task/{{_id}}/edit" class="card-link">Editar</a>
-    <a href="/task/{{_id}}/delete" class="card-link">Eliminar </a>
+    <a href="/user/create/{{_id}}/edit" class="card-link">Edit</a>
+    <a href="/user/myEvents/{{_id}}/delete" class="card-link">Delete</a>
   </div>
 </div>

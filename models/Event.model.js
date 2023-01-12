@@ -22,12 +22,12 @@ const eventSchema = new Schema(
     },
     photos:{
         type:[String],
-        required: true,
+        required: false,
         default:"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.luftechnik.com%2Fplaceholder-png%2F&psig=AOvVaw2GdSgbaRrkI8uROpt-NW9_&ust=1673402231494000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCKjBy6Lzu_wCFQAAAAAdAAAAABAD",
     },
     _owner:{
         type: Schema.Types.ObjectId,
-        ref:"User"
+        ref:"User",
     }
     // Event.findOneAndupdate({_owner:req.session.currentUser._id, _id:req.params.id })
   },
