@@ -11,14 +11,18 @@
     <div class="col">
      Add Guest
       {{#if isEdit}}
-      <form 
-      action="create/:id/addGuests"
+      {{#each guestEdit}}
+      {{> editGuest this }}
+      {{/each}}
+
+      {{!-- <form 
+      action="/user/create/{{event._id}}/addGuests/edit/{{guestEdit._id}}"
       method="POST"
       >
         <div class="mb-3">
           <label for="exampleFormControlInput1" class="form-label">Guest Name</label>
           <input
-          value="{{guestCreated.name}}"
+          value="{{guestEdit.name}}"
             type="text"
             class="form-control"
             id="name"
@@ -35,13 +39,14 @@
             rows="3"
             name="email"
             placeholder="Email"
-          >{{guestCreated.email}}</textarea>
+          >{{guestEdit.email}}</textarea>
         </div>
          <button type="submit" class="btn btn-primary">Edit Guest</button>
-      </form>
+      </form> --}}
       {{else}}
+      Crear
       <form 
-      action="create/:id/addGuests"
+      action="/user/create/{{event._id}}/addGuests"
       method="POST"
       >
         <div class="mb-3">
