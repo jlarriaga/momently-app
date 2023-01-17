@@ -3,8 +3,87 @@
     <h5 class="card-title">{{name}}</h5>
 
     <p class="card-text">{{email}}</p>
+    
+    <a
+      href=""
+      data-bs-toggle="modal"
+      data-bs-target="#mi-modal-{{_id}}"
+    >Edit</a>
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="mi-modal-{{_id}}"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+      data-bs-backdrop="static"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <a href="" class="close" data-ds-dismiss="modal" aria-label="Close">
+              <button
+                type="button"
+                class="close"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </a>
 
-    <a href="/user/create/{{_id}}/edit" class="card-link">Edit</a>
-    <a href="/user/myEvents/{{_id}}/delete" class="card-link">Delete</a>
+          </div>
+          <div class="modal-body">
+            Aqui deben de ir los inputs
+            <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Guest Name</label>
+          
+          <form 
+          action="/user/create/{{_event}}/edit/{{_id}}"
+          method="POST"
+          >
+          
+          <input
+          value="{{name}}"
+            type="text"
+            class="form-control"
+            id="name"
+            placeholder="Name"
+            name="name"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="Description" class="form-label">Email</label>
+          <textarea
+         
+            class="form-control"
+            id="email"
+            rows="3"
+            name="email"
+            placeholder="Email"
+          >{{email}}</textarea>
+        </div>
+<div class="modal-footer">
+            <a href="" class="close" data-ds-dismiss="modal" aria-label="Close">
+            <button
+              type="button"
+              class="btn btn-secondary"
+            >Close</button>
+            </a>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div> 
+
+        </form>
+          </div>
+          
+
+
+          
+          
+        </div>
+      </div>
+    </div>
+    <a href="/user/guest/{{_event}}/delete/{{_id}}" class="card-link">Delete</a>
   </div>
 </div>
