@@ -1,0 +1,19 @@
+My event
+
+<ul>
+    <li>{{event.title}}</li>
+    <li>{{event.description}}</li>
+    <li>{{event.location}}</li>
+    <li>{{event.date}}</li>
+ </ul>
+
+ My Guests
+ <ul>
+    {{#each guestList}}
+    <li>{{name}}</li>
+    <li>{{email}}</li>
+    {{/each}}
+ </ul>
+
+      <a href="/user/home">Create event</a>
+

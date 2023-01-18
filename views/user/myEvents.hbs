@@ -4,3 +4,10 @@
 <h2>Quality time with your loved ones!</h2>
 
 <a href="/user/create">Create an event</a>
+
+<div class="col">
+      Event List
+      {{#each eventList}}
+      {{> eventCard this}}
+      {{/each}}
+ </div>

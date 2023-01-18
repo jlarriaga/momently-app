@@ -1,0 +1,20 @@
+<h2>Add new event</h2>
+<form action="create/{{eventEdit._id}}/edit" method="POST">
+
+<h3>Title</h3>
+  <input type="text" value="{{eventEdit.title}}" name="title" />
+ 
+  <h3>Description</h3>
+  <input type="text" value="{{eventEdit.description}}" name="description" />
+
+   <h3>Location</h3>
+  <input type="text" value="{{eventEdit.location}}" name="location" />
+
+  <h3>Date and time</h3>
+  {{eventEdit.date}}
+    <br>
+  <input type="datetime-local" value="{{eventEdit.date}}" name="date" />
+
+
+ <button type="submit"> Continue </button>
+</form>
