@@ -1,28 +1,52 @@
-<div id="form">
-  <h2>Sign Up</h2>
-  <form action="/auth/signup" method="POST">
+<section class="bg-image"
+  style="background-image: url('https://images.unsplash.com/photo-1562077790-5fab0c2e49eb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1716&q=80');">
+  <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+    <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+          <div class="card" style="border-radius: 15px;">
+            <div class="card-body p-5">
+              <h2 class="text-uppercase text-center mb-5">Create an account</h2>
 
-    <label> Fullname
-      <input type="text" name="fullName" placeholder="Your fullName" />
-    </label>
+              <form action="/auth/signup" method="POST">
 
-    <label> Email
-      <input type="email" name="email" placeholder="Your email" />
-    </label>
+                <div class="form-outline mb-4">
+                  <input  type="text" id="form3Example1cg" class="form-control form-control-lg" name="FullNAme" placeholder="Your name"/>
+                </div>
 
-    <label> Password
-      <input type="password" name="password" placeholder="Your password" />
-    </label>
+                <div class="form-outline mb-4">
+                  <input type="email" id="form3Example3cg" class="form-control form-control-lg" name="email" placeholder="Your email"/>
+                </div>
 
-    <label> Confirm password
-      <input type="password" name="confirmPassword" placeholder="Confirm password" />
-    </label>
+                <div class="form-outline mb-4">
+                  <input type="password" id="form3Example4cg" class="form-control form-control-lg" name="password" placeholder="Your password"/>
+                </div>
 
-    <button type="submit">Sign Up</button>
+                <div class="form-outline mb-4">
+                  <input type="password" id="form3Example4cdg" class="form-control form-control-lg" name="confirmPassword" placeholder="Confirm password"/>
+                </div>
 
+                <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="/auth/login"
+                    class="fw-bold text-body"><u>Login here</u></a></p>
 
-    {{#if errorMessage}}
-      <p class="error">{{errorMessage}}</p>
-    {{/if}}
-  </form>
-</div>
+                <br>
+                <br>
+
+                <div class="d-flex justify-content-center">
+                  <button type="submit "
+                    class="btn btn-success btn-block btn-lg bg-primary bg-gradient text-light">Sign up</button>
+                </div>
+              
+                {{#if errorMessage}}
+                <p class="error">{{errorMessage}}</p>
+                {{/if}}
+
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

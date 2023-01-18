@@ -49,7 +49,7 @@ router.post("/signup", async (req, res, next) => {
 
     if (password !== confirmPassword) {
       return res.render("auth/signup", {
-        errorMessage: "Passwords need to be the same",
+      errorMessage: "Passwords need to be the same",
       });
     }
 

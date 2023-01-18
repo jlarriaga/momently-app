@@ -1,5 +1,4 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -9,4 +8,40 @@ a {
 
 h1 {
   color: 15px;
+}
+
+.text-white{
+  text-align: center;
+  margin-top: 150px;
+}
+
+.bg-image{
+  background-repeat: no-repeat;
+}
+
+.d-grid{
+  width: 400px;
+  margin: auto;
+}
+
+.text{
+  text-align: center;
+  margin-top: 100px
+}
+
+.display-6{
+  margin-bottom: 56px;
+}
+
+.list{
+  list-style: none;
+  margin: auto;
+  text-align: center;
+}
+
+a:link { text-decoration: none;
+}
+a:visited {
+text-decoration: none;
+color: black;
 }
