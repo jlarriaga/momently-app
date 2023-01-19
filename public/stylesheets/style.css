@@ -45,3 +45,7 @@ a:visited {
 text-decoration: none;
 color: black;
 }
+
+.body{
+  padding: 50px;
+}
