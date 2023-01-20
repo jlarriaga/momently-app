@@ -10,15 +10,22 @@ router.get("/home", isLoggedIn, async (req,res,next)=>{
     const user = req.session.currentUser
     try{
     const eventList = await Event.find({_owner: user._id})
-    res.render("user/myEvents", {eventList})  
+    res.render("user/myEvents", {eventList, user})  
     } catch (error) {
         next(error)
     }
 })
 
+//Profile
+router.get("/profile", isLoggedIn, (req,res,next)=>{
+    const user = req.session.currentUser
+    res.render("user/profile", {user})
+})
+
 //GET Create Event
 router.get("/create", isLoggedIn, (req,res,next)=>{
-    res.render("user/newEvent")
+    const user = req.session.currentUser
+    res.render("user/newEvent", {user})
 })
 
 //POST Create Event
@@ -28,9 +35,8 @@ router.post("/create", isLoggedIn, async (req,res,next) => {
     try{
         const eventCreated = await Event.create( { title, location, description, date, _owner: user._id } )
         res.redirect(`create/${eventCreated._id}/addGuests`)
-        
     } catch (error){
-        res.render("user/newEvent")
+        next(error)
     }   
 })
 
@@ -51,20 +57,13 @@ router.get("/create/:idEvent/edit", isLoggedIn, async (req,res,next)=>{
 router.post("/create/:idEvent/edit", isLoggedIn, async(req,res,next) =>{
     const {idEvent} = req.params
     const user = req.session.currentUser
-    const { title, location, description, date} = req.body
     try {
     const newEventEdit = await Event.findByIdAndUpdate(idEvent,{...req.body},{new:true})
-    console.log("new", newEventEdit);
-    res.redirect(`create/${newEventEdit._id}/addGuests`)        
+    res.redirect(`/user/create/${newEventEdit._id}/addGuests`)        
     } catch (error) {
         next(error)
     }
-
 })
-
-
-
-
 
 //GET Add Guest con id del Event
 router.get("/create/:id/addGuests", isLoggedIn, async (req,res,next) =>{
@@ -72,26 +71,21 @@ router.get("/create/:id/addGuests", isLoggedIn, async (req,res,next) =>{
     try{
         const event = await Event.findById(id)
         const guestList = await Guest.find({_event:id})
-
         res.render("user/addGuests", { event, guestList })
     } catch (error){
-        console.log(error);
-        res.render("user/newEvent")
-        //pagina error
+        next(error)
     }
 })
-
 
 router.post("/create/:id/addGuests", isLoggedIn, async (req,res,next) =>{
     const { id } = req.params
     const { name, email } = req.body
     const user = req.session.currentUser
-
     try {
         const guestCreated = await Guest.create({name, email, _event:id})
         res.redirect(`/user/create/${id}/addGuests`)
     } catch (error) {
-        res.render("user/newEvent")
+        next(error)
     }
 })
 
@@ -99,7 +93,6 @@ router.post("/create/:id/addGuests", isLoggedIn, async (req,res,next) =>{
 router.post("/create/:idEvent/edit/:idGuest",isLoggedIn, async(req,res,next)=>{
     const { idEvent, idGuest } = req.params
     const user = req.session.currentUser
-
     try {
         const guestEdit = await Guest.findByIdAndUpdate(idGuest,{...req.body},{new:true})
         res.redirect(`/user/create/${idEvent}/addGuests`)
@@ -115,28 +108,11 @@ router.get("/create/:idEvent/eventDetails", isLoggedIn, async (req,res,next) =>{
     try{
         const event = await Event.findById(idEvent)
         const guestList = await Guest.find({_event:idEvent})
-
         res.render("user/eventDetails", { event, guestList })
     } catch {
         next (error)
     }
 })
-
-
-
-//get y vacio, redirect a login
-
-/**router.get("/home", isLoggedIn, async (req,res,next) => {
-    const user = req.session.currentUser
-    try {
-        const myEvents = await Event.findById({_owner: user._id})
-        res.render("user/myEvents", {myEvents})
-    } catch (error) {
-        next(error);
-    }
-})*/
-
-
 
 //GET Delete
 router.get("/guest/:idEvent/delete/:idGuest",async (req,res,next)=>{
@@ -144,14 +120,9 @@ router.get("/guest/:idEvent/delete/:idGuest",async (req,res,next)=>{
     try {
          await Guest.findByIdAndRemove(idGuest)
          res.redirect(`/user/create/${idEvent}/addGuests`)
-        
     } catch (error) {
-        next(error)
-        
+        next(error) 
     }
-
 })
-
-//
 
 module.exports = router;
