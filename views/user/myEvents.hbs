@@ -1,21 +1,21 @@
 <section>
-<header>
+<header class="myEvents">
   <!-- Background image -->
   <div
-    class="p-5 text-center bg-image"
+    class="m-0 p-0 text-center bg-image"
     style="
-      background-image: url('https://mdbcdn.b-cdn.net/img/new/slides/041.webp');
+      background-image: url('https://images.unsplash.com/photo-1531686264889-56fdcabd163f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80');
       height: 400px;
-      margin-top: 58px;
     "
   >
     <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
       <div class="d-flex justify-content-center align-items-center h-100">
-        <div class="text-white">
-          <h1 class="mb-3">My events</h1>
+        <div class="text-white m-0">
+          <h1 class="mb-3"><b>My events</b></h1>
           <h4 class="mb-3">Create and organize all kinds of events</h4>
           <h4 class="mb-3">Quality time with your loved ones!</h4>
-          <a class="btn btn-outline-light btn-lg" href="/user/create" role="button"
+          <br>
+          <a class="btn btn-outline-light btn-lg text-warning" href="/user/create" role="button"
           >Create an event</a
           >
         </div>
@@ -25,8 +25,13 @@
   <!-- Background image -->
 </header>
 
-<div class="col">
-      Event List
+<br>
+<br>
+
+<div class="col p-5 gap-3">
+      <h3 class="h3">Event list</h3>
+      <br>
+      <br>
       {{#each eventList}}
       {{> eventCard this}}
       {{/each}}

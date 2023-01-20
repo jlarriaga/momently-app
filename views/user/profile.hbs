@@ -1,4 +1,25 @@
-<h1>Mi Perfil</h1>
+<section class="body profile">
+    <h1><b>My profile</b></h1>
 
-<p>Fullname:{{user.fullname}}</p>
-<p>Email:{{user.email}}</p>
+    <br>
+    <br>
+
+    <img
+    src="https://images.unsplash.com/photo-1500048993953-d23a436266cf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1769&q=80"
+    class="img-fluid rounded-pill w-25"
+    alt="Townhouses and Skyscrapers"
+    />
+
+    <br>
+    <br>
+
+    <div>
+        <p><b>Name: </b>{{user.fullName}}</p>
+        <p><b>Email: </b>{{user.email}}</p>
+
+        <br>
+        <br>
+
+        <a class="nav-link" href="/auth/logout">Log out</a>
+    </div>
+</section>

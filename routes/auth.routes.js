@@ -22,11 +22,11 @@ router.get("/signup", (req, res, next) => {
 
 // POST /auth/signup
 router.post("/signup", async (req, res, next) => {
-  const { fullname, email, password, confirmPassword } = req.body;
+  const { fullName, email, password, confirmPassword } = req.body;
   
   try {
     if (
-      fullname === "" ||
+      fullName === "" ||
       email === "" ||
       password === "" ||
       confirmPassword === ""
@@ -52,19 +52,6 @@ router.post("/signup", async (req, res, next) => {
       errorMessage: "Passwords need to be the same",
       });
     }
-
-    //   ! This regular expression checks password for special characters and minimum length
-    /*
-  const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
-  if (!regex.test(password)) {
-    res
-      .status(400)
-      .render("auth/signup", {
-        errorMessage: "Password needs to have at least 6 chars and must contain at least one number, one lowercase and one uppercase letter."
-    });
-    return;
-  }
-  */
     
     // Create a new user - start by hashing the password
     const salt = bcrypt.genSaltSync(saltRound);
@@ -73,7 +60,7 @@ router.post("/signup", async (req, res, next) => {
     
     const userCreated = await User.create({
       email,
-      fullname,
+      fullName,
       password: hashedPassword,
     });
     //config mongos-conect y session-store
@@ -89,7 +76,7 @@ router.post("/signup", async (req, res, next) => {
     } else if (error.code === 11000) {
       res.status(500).render("auth/signup", {
         errorMessage:
-          "fullname and email need to be unique. Either fullname or email is already used.",
+          "Fullname and email need to be unique. Either fullname or email is already used.",
       });
     } else {
       next(error);
@@ -104,10 +91,10 @@ router.get("/login", (req, res) => {
 
 // POST /auth/login
 router.post("/login", async (req, res, next) => {
-  const { fullname, email, password } = req.body;
+  const { fullName, email, password } = req.body;
   try {
     // Check that fullname, email, and password are provided
-    if (fullname === "" || email === "" || password === "") {
+    if (fullName === "" || email === "" || password === "") {
       res.status(400).render("auth/login", {
         errorMessage:
           "All fields are mandatory. Please provide fullname, email and password.",
@@ -159,4 +146,14 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
+
+//logout
+router.get("/logout", (req, res, next) => {
+  req.session.destroy((error) =>{
+      if(error){
+          return next(error)
+      }
+      res.redirect("/")
+  })
+})
 module.exports = router;

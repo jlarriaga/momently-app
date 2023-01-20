@@ -1,5 +1,5 @@
 <h2>Add new event</h2>
-<form action="create/{{eventEdit._id}}/edit" method="POST">
+<form action="/user/create/{{eventEdit._id}}/edit" method="POST">
 
 <h3>Title</h3>
   <input type="text" value="{{eventEdit.title}}" name="title" />
@@ -12,7 +12,7 @@
 
   <h3>Date and time</h3>
   {{eventEdit.date}}
-    <br>
+  <br>
   <input type="datetime-local" value="{{eventEdit.date}}" name="date" />
 
 

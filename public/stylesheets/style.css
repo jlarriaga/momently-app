@@ -12,7 +12,7 @@ h1 {
 
 .text-white{
   text-align: center;
-  margin-top: 150px;
+  margin-top: 100px;
 }
 
 .bg-image{
@@ -39,13 +39,48 @@ h1 {
   text-align: center;
 }
 
-a:link { text-decoration: none;
+a:link { 
+  text-decoration: none;
+  color: rgb(9, 115, 244);
 }
 a:visited {
-text-decoration: none;
-color: black;
+  text-decoration: none;
+  color: rgb(9, 115, 244);
 }
 
 .body{
   padding: 50px;
+}
+
+.card{
+  margin-bottom: 24px;
+}
+
+.edit{
+  width: auto;
+  margin: 0%;
+}
+
+.profile{
+  text-align: center;
+}
+
+.profile-content{
+  text-align: left;
+}
+
+.eventcard-list{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.card-link{
+  margin-left: 24px;
+  align-self: end;
+}
+
+.bg-image{
+  background-attachment: contain;
+	background-size: cover;
 }
