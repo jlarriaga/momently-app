@@ -1,89 +1,88 @@
-{{!-- Guests list begins --}}
- <ul>
-    <li>{{event.title}}</li>
-    <li>{{event.description}}</li>
-    <li>{{event.location}}</li>
-    <li>{{event.date}}</li>
- </ul>
-  
- <div class="container text-center">
-  <div class="row">
-    <div class="col">
-     Add Guest
-      {{#if isEdit}}
-      {{#each guestEdit}}
-      {{> editGuest this }}
-      {{/each}}
-
-      {{!-- <form 
-      action="/user/create/{{event._id}}/addGuests/edit/{{guestEdit._id}}"
-      method="POST"
-      >
-        <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label">Guest Name</label>
-          <input
-          value="{{guestEdit.name}}"
-            type="text"
-            class="form-control"
-            id="name"
-            placeholder="Name"
-            name="name"
-          />
+<!-- Section: Design Block -->
+<section class="">
+  <!-- Jumbotron -->
+  <div class="px-4 py-5 px-md-5 text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">
+    <div class="container">
+      <div class="row gx-lg-5 align-items-center">
+        <div class="col-lg-6 mb-5 mb-lg-0">
+          <h1 class="my-5 display-3 fw-bold ls-tight">
+            {{event.title}} <br />
+          </h1>
+          <p style="color: hsl(217, 10%, 50.8%)">
+            {{event.description}}
+          </p>
+          <p style="color: hsl(217, 10%, 50.8%)">
+            {{event.location}}
+          </p>
+          <p style="color: hsl(217, 10%, 50.8%)">
+            {{event.date}}
+          </p>
         </div>
-        <div class="mb-3">
-          <label for="Description" class="form-label">Email</label>
-          <textarea
+        
+        <div class="col-lg-6 mb-5 mb-lg-0">
+          <div class="card" style="border-radius: 15px;">
+            <div class="card-body p-5">
+              <h2 class="text-uppercase text-center mb-5">Add Guests</h2>
+              {{#if isEdit}}
+              {{#each guestEdit}}
+              {{> editGuest this }}
+              {{/each}}
+              {{else}}
+              <form
+                action="/user/create/{{event._id}}/addGuests"
+                method="POST"
+                >
+                <!-- 2 column grid layout with text inputs for the first and last names -->
+                    <div class="form-outline mb-4">
+                    <input  type="text"  class="form-control form-control-lg" name="name" placeholder="Guest name"/>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                    <input  type="text"  class="form-control form-control-lg" name="email" placeholder="Guest email"/>
+                    </div>
+
+                <!-- Submit button -->
+                    <div class="d-flex justify-content-center">
+                    <button type="submit"
+                    class="btn btn-success btn-block btn-lg bg-primary bg-gradient text-light">Add Guest</button>
+                    </div>
+
+              </form>
+              {{/if}}
+            </div>
+          </div>
+            <br>
+            <br>
+
+          <div class="d-flex justify-content-center"></div>
+          <h3 class="text-uppercase text-center mb-5">Guest List</h3>
+       <div class="d-inline">
+        {{#each guestList}}
+
+              {{> guestCard this }}
+
+              {{/each}}
+
+       </div>
+              
+
+           <div class="d-flex justify-content-center">
+            <a class="btn btn-block btn-lg m-2 bg-primary bg-gradient text-light" href="/user/create/{{event._id}}/eventDetails" role="button"
+              rel="nofollow">Continue</a>
+
+          </div>
+          </div>
+
          
-            class="form-control"
-            id="email"
-            rows="3"
-            name="email"
-            placeholder="Email"
-          >{{guestEdit.email}}</textarea>
+          
+
+
+
+          
         </div>
-         <button type="submit" class="btn btn-primary">Edit Guest</button>
-      </form> --}}
-      {{else}}
-      Crear
-      <form 
-      action="/user/create/{{event._id}}/addGuests"
-      method="POST"
-      >
-        <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label">Guest Name</label>
-          <input
-            type="text"
-            class="form-control"
-            id="name"
-            placeholder="name"
-            name="name"
-          />
-
-          <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label">Email</label>
-          <input
-            type="text"
-            class="form-control"
-            id="email"
-            placeholder="Email"
-            name="email"
-          />
-
-         <button type="submit" class="btn btn-primary">Add Guest</button>
-
-      </form>
-      {{/if}}
+      </div>
     </div>
-    <div class="col">
-      Guest List
-      {{#each guestList}}
-      {{> guestCard this }}
-      {{/each}}
-    </div>
-
-    <form action="user/create/{{event._id}}/eventDetails" method="GET">
-      <a href="/user/create/{{event._id}}/eventDetails">Continue</a>
-    </form>
-    
   </div>
-</div>
+  <!-- Jumbotron -->
+</section>
+<!-- Section: Design Block -->

@@ -1,19 +1,83 @@
 My event
 
 <ul>
-    <li>{{event.title}}</li>
-    <li>{{event.description}}</li>
-    <li>{{event.location}}</li>
-    <li>{{event.date}}</li>
- </ul>
+  <li>{{event.title}}</li>
+  <li>{{event.description}}</li>
+  <li>{{event.location}}</li>
+  <li>{{event.date}}</li>
+</ul>
 
- My Guests
- <ul>
-    {{#each guestList}}
+My Guests
+<ul>
+  {{#each guestList}}
     <li>{{name}}</li>
     <li>{{email}}</li>
-    {{/each}}
- </ul>
+  {{/each}}
+</ul>
 
-      <a href="/user/home">Create event</a>
+<section
+  class="bg-image"
+  style="background-image: url('https://images.unsplash.com/photo-1562077790-5fab0c2e49eb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1716&q=80');"
+>
+  <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+    <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+          <div class="card" style="border-radius: 15px;">
+            <div class="card-body p-5">
+              <h2 class="text-uppercase text-center mb-5">Event Details</h2>
 
+              <div class="form-outline mb-4">
+                <label
+                  for="colFormLabelLg"
+                  class="col-sm-2 col-form-label col-form-label-lg"
+                >{{event.title}}</label>
+              </div>
+              <div class="form-outline mb-4">
+                <label
+                  for="colFormLabelLg"
+                  class="col-sm-2 col-form-label col-form-label-lg"
+                >{{event.description}}</label>
+              </div>
+              <div class="form-outline mb-4">
+                <label
+                  for="colFormLabelLg"
+                  class="col-sm-2 col-form-label col-form-label-lg"
+                >{{event.location}}</label>
+              </div>
+              <div class="form-outline mb-4">
+                <label
+                  for="colFormLabelLg"
+                  class="col-sm-2 col-form-label col-form-label-lg"
+                >{{event.date}}</label>
+              </div>
+
+              {{#each guestList}}
+              <div class="list-group">
+                <a
+                  class="list-group-item list-group-item-action flex-column align-items-start active"
+                >
+                  <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{name}}</h5>
+                  </div>
+                  <p class="mb-1">{{email}}</p>
+                </a>
+              </div>
+              {{/each}}
+
+              <div class="d-flex justify-content-center">
+                <a
+                  class="btn btn-block btn-lg m-2 bg-primary bg-gradient text-light"
+                  href="/user/home"
+                  role="button"
+                  rel="nofollow"
+                >Create Event</a>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
