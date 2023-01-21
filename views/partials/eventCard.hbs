@@ -1,0 +1,19 @@
+<div class="card" style="width: auto;">
+  <div class="card-body m-2 mt-2">
+    <h5 class="card-title"><b>{{title}}</b></h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{date}}</h6>
+    <br>
+    <p class="card-text">{{description}}</p>
+
+    <div class="eventcard-list">
+    
+    <div class="card-link2">
+      <form class="edit" action="user/create/{{_id}}/edit" method="GET">
+      <a class="card-link" href="/user/create/{{_id}}/edit">Edit</a>
+      </form>
+    </div>
+    
+    </div>
+
+  </div>
+</div>

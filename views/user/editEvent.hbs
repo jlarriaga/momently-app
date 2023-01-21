@@ -1,0 +1,50 @@
+<section class="bg-image"
+  style="background-image: url('https://images.unsplash.com/photo-1514214460829-5f081763862a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80');">
+  <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+    <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+          <div class="card" style="border-radius: 15px;">
+            <div class="card-body p-5">
+              <h2 class="text-center mb-5">Create a new event</h2>
+
+              <form action="/user/create/{{eventEdit._id}}/edit" method="POST">
+
+                <div class="form-outline mb-4">
+                  <input  type="text"  class="form-control form-control-lg" name="title" value="{{eventEdit.title}}"/>
+                </div>
+                
+
+                <div class="form-outline mb-4">
+                  <input type="text"  class="form-control form-control-lg" name="description" value="{{eventEdit.description}}"/>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="text"  class="form-control form-control-lg" name="location" value="{{eventEdit.location}}"/>
+                </div>
+
+                <br>
+
+                <div class="form-outline mb-2 mt-2">
+                  <h6>Current Date & Time: {{eventEdit.date}}</h6>
+                  <br>
+                  <input type="datetime-local"  class="form-control form-control-lg" name="date"/>
+                </div>
+
+                <br>
+                <br>
+
+                <div class="d-flex justify-content-center">
+                  <button type="submit"
+                    class="btn btn-success btn-block btn-lg bg-primary bg-gradient text-light">Continue</button>
+                </div>
+
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

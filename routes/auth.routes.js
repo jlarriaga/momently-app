@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 
 // How many rounds should bcrypt run the salt (default - 10 rounds)
-const saltRounds = 10;
+const saltRound = 10;
 
 // Require the User model in order to interact with the database
 const User = require("../models/User.model");
@@ -16,141 +16,144 @@ const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 
 // GET /auth/signup
-router.get("/signup", isLoggedOut, (req, res) => {
+router.get("/signup", (req, res, next) => {
   res.render("auth/signup");
 });
 
 // POST /auth/signup
-router.post("/signup", isLoggedOut, (req, res) => {
-  const { username, email, password } = req.body;
+router.post("/signup", async (req, res, next) => {
+  const { fullName, email, password, confirmPassword } = req.body;
+  
+  try {
+    if (
+      fullName === "" ||
+      email === "" ||
+      password === "" ||
+      confirmPassword === ""
+    ) {
+      res.status(400).render("auth/signup", {
+        errorMessage:
+          "All fields are mandatory. Please provide your fullname, email and password.",
+      });
 
-  // Check that username, email, and password are provided
-  if (username === "" || email === "" || password === "") {
-    res.status(400).render("auth/signup", {
-      errorMessage:
-        "All fields are mandatory. Please provide your username, email and password.",
+      return;
+    }
+
+    if (password.length < 6) {
+      res.status(400).render("auth/signup", {
+        errorMessage: "Your password needs to be at least 6 characters long.",
+      });
+
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      return res.render("auth/signup", {
+      errorMessage: "Passwords need to be the same",
+      });
+    }
+    
+    // Create a new user - start by hashing the password
+    const salt = bcrypt.genSaltSync(saltRound);
+    
+    const hashedPassword = bcrypt.hashSync(password, salt);
+    
+    const userCreated = await User.create({
+      email,
+      fullName,
+      password: hashedPassword,
     });
+    //config mongos-conect y session-store
+    const newUser = userCreated.toObject();
+    delete newUser.password;
+    //guardar el usuario creado en el req.session para indicar que ya tiene una session activa
+    req.session.currentUser = newUser;
+    res.redirect("/user/home");
 
-    return;
+  } catch (error) {
+    if (error instanceof mongoose.Error.ValidationError) {
+      res.status(500).render("auth/signup", { errorMessage: error.message });
+    } else if (error.code === 11000) {
+      res.status(500).render("auth/signup", {
+        errorMessage:
+          "Fullname and email need to be unique. Either fullname or email is already used.",
+      });
+    } else {
+      next(error);
+    }
   }
-
-  if (password.length < 6) {
-    res.status(400).render("auth/signup", {
-      errorMessage: "Your password needs to be at least 6 characters long.",
-    });
-
-    return;
-  }
-
-  //   ! This regular expression checks password for special characters and minimum length
-  /*
-  const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
-  if (!regex.test(password)) {
-    res
-      .status(400)
-      .render("auth/signup", {
-        errorMessage: "Password needs to have at least 6 chars and must contain at least one number, one lowercase and one uppercase letter."
-    });
-    return;
-  }
-  */
-
-  // Create a new user - start by hashing the password
-  bcrypt
-    .genSalt(saltRounds)
-    .then((salt) => bcrypt.hash(password, salt))
-    .then((hashedPassword) => {
-      // Create a user and save it in the database
-      return User.create({ username, email, password: hashedPassword });
-    })
-    .then((user) => {
-      res.redirect("/auth/login");
-    })
-    .catch((error) => {
-      if (error instanceof mongoose.Error.ValidationError) {
-        res.status(500).render("auth/signup", { errorMessage: error.message });
-      } else if (error.code === 11000) {
-        res.status(500).render("auth/signup", {
-          errorMessage:
-            "Username and email need to be unique. Provide a valid username or email.",
-        });
-      } else {
-        next(error);
-      }
-    });
 });
 
 // GET /auth/login
-router.get("/login", isLoggedOut, (req, res) => {
+router.get("/login", (req, res) => {
   res.render("auth/login");
 });
 
 // POST /auth/login
-router.post("/login", isLoggedOut, (req, res, next) => {
-  const { username, email, password } = req.body;
+router.post("/login", async (req, res, next) => {
+  const { fullName, email, password } = req.body;
+  try {
+    // Check that fullname, email, and password are provided
+    if (fullName === "" || email === "" || password === "") {
+      res.status(400).render("auth/login", {
+        errorMessage:
+          "All fields are mandatory. Please provide fullname, email and password.",
+      });
 
-  // Check that username, email, and password are provided
-  if (username === "" || email === "" || password === "") {
-    res.status(400).render("auth/login", {
-      errorMessage:
-        "All fields are mandatory. Please provide username, email and password.",
-    });
-
-    return;
-  }
-
-  // Here we use the same logic as above
-  // - either length based parameters or we check the strength of a password
-  if (password.length < 6) {
-    return res.status(400).render("auth/login", {
-      errorMessage: "Your password needs to be at least 6 characters long.",
-    });
-  }
-
-  // Search the database for a user with the email submitted in the form
-  User.findOne({ email })
-    .then((user) => {
-      // If the user isn't found, send an error message that user provided wrong credentials
-      if (!user) {
-        res
-          .status(400)
-          .render("auth/login", { errorMessage: "Wrong credentials." });
-        return;
-      }
-
-      // If user is found based on the username, check if the in putted password matches the one saved in the database
-      bcrypt
-        .compare(password, user.password)
-        .then((isSamePassword) => {
-          if (!isSamePassword) {
-            res
-              .status(400)
-              .render("auth/login", { errorMessage: "Wrong credentials." });
-            return;
-          }
-
-          // Add the user object to the session object
-          req.session.currentUser = user.toObject();
-          // Remove the password field
-          delete req.session.currentUser.password;
-
-          res.redirect("/");
-        })
-        .catch((err) => next(err)); // In this case, we send error handling to the error handling middleware.
-    })
-    .catch((err) => next(err));
-});
-
-// GET /auth/logout
-router.get("/logout", isLoggedIn, (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      res.status(500).render("auth/logout", { errorMessage: err.message });
       return;
     }
 
-    res.redirect("/");
-  });
+    // Here we use the same logic as above
+    // - either length based parameters or we check the strength of a password
+    if (password.length < 6) {
+      return res.status(400).render("auth/login", {
+        errorMessage: "Your password needs to be at least 6 characters long.",
+      });
+    }
+
+    const user = await User.findOne({ email });
+
+    // If the user isn't found, send an error message that user provided wrong credentials
+    if (!user) {
+      res.status(400);
+      res.render("auth/login", { errorMessage: "Wrong credentials." });
+      return;
+    }
+
+    const match = bcrypt.compareSync(password, user.password);
+
+    // If user is found based on the fullname, check if the in putted password matches the one saved in the database
+    if (match) {
+      const newUser = user.toObject();
+      delete newUser.password;
+      req.session.currentUser = newUser;
+      res.redirect("/user/home");
+    } else {
+      res.status(400);
+      res.render("auth/login", { errorMessage: "Wrong credentials." });
+      return;
+    }
+  } catch (error) {
+    if (error instanceof mongoose.Error.ValidationError) {
+      res.status(500).render("auth/login", { errorMessage: error.message });
+    } else if (error.code === 11000) {
+      res.status(500).render("auth/login", {
+        errorMessage: "Fullame and email need to match our database.",
+      });
+    } else {
+      next(error);
+    }
+  }
 });
 
+
+//logout
+router.get("/logout", (req, res, next) => {
+  req.session.destroy((error) =>{
+      if(error){
+          return next(error)
+      }
+      res.redirect("/")
+  })
+})
 module.exports = router;
