@@ -71,7 +71,8 @@ router.get("/create/:id/addGuests", isLoggedIn, async (req,res,next) =>{
     try{
         const event = await Event.findById(id)
         const guestList = await Guest.find({_event:id})
-        res.render("user/addGuests", { event, guestList })
+        const user = req.session.currentUser
+        res.render("user/addGuests", { event, guestList, user})
     } catch (error){
         next(error)
     }
@@ -108,7 +109,8 @@ router.get("/create/:idEvent/eventDetails", isLoggedIn, async (req,res,next) =>{
     try{
         const event = await Event.findById(idEvent)
         const guestList = await Guest.find({_event:idEvent})
-        res.render("user/eventDetails", { event, guestList })
+        const user = req.session.currentUser
+        res.render("user/eventDetails", { event, guestList, user})
     } catch {
         next (error)
     }

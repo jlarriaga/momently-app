@@ -1,49 +1,52 @@
 <section
   class="bg-image"
-  style="background-image: url('https://images.unsplash.com/photo-1562077790-5fab0c2e49eb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1716&q=80');"
+  style="background-image: url('https://images.unsplash.com/photo-1560987617-6de57e3d0574?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1769&q=80');"
 >
-  <div class="mask d-flex align-items-center h-100 gradient-custom-3">
-    <div class="container h-100">
+  <div class="mask d-flex align-items-center h-auto gradient-custom-3">
+    <div class="container h-auto">
       <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
-          <div class="card" style="border-radius: 15px;">
-            <div class="card-body p-5">
-              <h2 class="text-uppercase text-center mb-5">Event Details</h2>
+        <div class="col-9 col-md-12 col-lg-7 col-xl-10">
+          <div class="card mt-5 mb-5" style="border-radius: 15px;">
+            <div class="card-body p-5 mb-5">
+              <h2 class="text-center mb-4">Event Details</h2>
+              <div class="">
+                <div class="form-outline">
+                  <label
+                    for="colFormLabelLg"
+                    class=" col-form-label col-form-label-lg"
+                  ><b>{{event.title}}</b></label>
+                </div>
+                <div class="form-outline">
+                  <label
+                    for="colFormLabelLg"
+                    class=" col-form-label col-form-label-lg"
+                  ><b>Description: </b>{{event.description}}</label>
+                </div>
+                <div class="form-outline">
+                  <label
+                    for="colFormLabelLg"
+                    class=" col-form-label col-form-label-lg"
+                  ><b>Location: </b>{{event.location}}</label>
+                </div>
+                <div class="form-outline">
+                  <label
+                    for="colFormLabelLg"
+                    class=" col-form-label col-form-label-lg"
+                  ><b>Date & Time: </b>{{event.date}}</label>
+                </div>
+              </div>
 
-              <div class="form-outline mb-4">
-                <label
-                  for="colFormLabelLg"
-                  class=" col-form-label col-form-label-lg"
-                >{{event.title}}</label>
-              </div>
-              <div class="form-outline mb-4">
-                <label
-                  for="colFormLabelLg"
-                  class=" col-form-label col-form-label-lg"
-                >{{event.description}}</label>
-              </div>
-              <div class="form-outline mb-4">
-                <label
-                  for="colFormLabelLg"
-                  class=" col-form-label col-form-label-lg"
-                >{{event.location}}</label>
-              </div>
-              <div class="form-outline mb-4">
-                <label
-                  for="colFormLabelLg"
-                  class=" col-form-label col-form-label-lg"
-                >{{event.date}}</label>
-              </div>
+              <br>
+              <br>
 
+              <h5><b>Guest List</b></h5>
               {{#each guestList}}
-              <div class="list-group">
-                <a
-                  class="list-group-item list-group-item-action flex-column align-items-start active"
-                >
-                  <div class="d-flex w-100 justify-content-between">
+              <div class="list-group d-inline p-2">
+                <a class="list-group-item">
+                  <div class="mb-1 w-25">
                     <h5 class="mb-1">{{name}}</h5>
+                    <p class="mb-1">{{email}}</p>
                   </div>
-                  <p class="mb-1">{{email}}</p>
                 </a>
               </div>
               {{/each}}

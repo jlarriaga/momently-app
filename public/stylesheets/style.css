@@ -84,3 +84,10 @@ a:visited {
   background-attachment: contain;
 	background-size: cover;
 }
+
+.guest-card{
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+  justify-content: space-between;
+}
